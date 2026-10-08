@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>My Location</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Geolocation App</ion-card-title>
+      <ion-card-subtitle>Find your current location</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="hint">
+        This app uses your location to show your current position on the map
+        and identify the nearest branch.
+      </p>
+
+      <ion-button expand="block" [disabled]="loading" (click)="getCurrentLocation()">
+        {{ loading ? 'Getting location...' : 'Get My Location' }}
+      </ion-button>
+
+      <ion-button expand="block" fill="outline" (click)="clearLocation()">
+        Clear Location
+      </ion-button>
+
+      @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  @if (latitude !== null) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Current Location</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Latitude:</strong> {{ latitude }}</p>
+        <p><strong>Longitude:</strong> {{ longitude }}</p>
+        <p><strong>Accuracy:</strong> {{ accuracy }} meters</p>
+      </ion-card-content>
+    </ion-card>
+  }
+
+  <div id="map"></div>
+
+  @if (nearestBranch) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Nearest Branch</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2><strong>{{ nearestBranch.name }}</strong></h2>
+        <p>{{ nearestBranch.distance }} km away</p>
+      </ion-card-content>
+    </ion-card>
+  }
+
+</ion-content>
